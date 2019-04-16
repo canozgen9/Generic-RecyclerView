@@ -6,7 +6,7 @@ build.gradle (project level)
 allprojects {
 	repositories {
 		...
-			aven { url 'https://jitpack.io' }
+		maven { url 'https://jitpack.io' }
 	}
 }
 ```
@@ -14,6 +14,7 @@ allprojects {
 build.gradle (module level)
 ```gradle
 dependencies {
-   implementation 'com.github.canozgen9:Generic-RecyclerView:0.1.0'
+	implementation 'com.github.canozgen9:Generic-RecyclerView:0.1.0'
 }
 ```
+Documentation will be coming soon.

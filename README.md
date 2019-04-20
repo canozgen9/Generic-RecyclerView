@@ -7,17 +7,26 @@ Generic-RecyclerView is an android library that generifies recycler view.
 In your **build.gradle** (project level) add following lines.
 ```gradle
 allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
 }
 ```
 
 In your **build.gradle** (module level) add following lines.
 ```gradle
 dependencies {
-	implementation 'com.github.canozgen9:Generic-RecyclerView:0.1.0'
+    implementation 'com.github.canozgen9:Generic-RecyclerView:0.1.0'
+}
+
+android {
+    ...
+    // Java 8 support
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 ```
 
@@ -36,6 +45,10 @@ Simply create your item class. Then implement **GenericRecyclerItem** interface.
 ```java
 public class Item1 implements GenericRecyclerItem {
     public String text;
+    
+    public Item1(String text) {
+        this.text = text;
+    }
 }
 ```
 

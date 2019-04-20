@@ -1,6 +1,6 @@
 # Generic-RecyclerView [![Release](https://jitpack.io/v/canozgen9/Generic-RecyclerView.svg)](https://jitpack.io/#canozgen9/Generic-RecyclerView)
 
-An android library that generifies recycler view
+Generic-RecyclerView is an android library that generifies recycler view.
 
 ## Getting Started
 ### Setting up dependencies
@@ -31,14 +31,18 @@ Add **GenericRecyclerView** to your layout.
 ```
 ### Creating generic items
 Simply create your item class. Then implement **GenericRecyclerItem** interface.
+
+**Item1.java**
 ```java
 public class Item1 implements GenericRecyclerItem {
     public String text;
 }
 ```
 
-### Creating view holders layout.
+### Creating view holders layout
 Create layout for view holder.
+
+**holder_1.xml**
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -58,6 +62,7 @@ Create layout for view holder.
 Create a class which extends from **GenericViewHolder** depending on your item.
 >  Don't forget to create **GenericRecyclerItem** before creating **GenericViewHolder**.
 
+**Holder1.java**
 ```java
 public class Holder1 extends GenericViewHolder<Item1> {
     // Define your views
@@ -91,18 +96,16 @@ GenericRecyclerView<GenericRecyclerItem> recyclerView = findViewById(R.id.Recycl
 
 // Use init() method to build it
 recyclerView.init(RecyclerActivity.this)
-	.listener((item, position, clickEventCode) -> {
-		Toast.makeText(this, position + "", Toast.LENGTH_SHORT).show();
-	})
-	.layout().linear()
-   .addView().item(Item1.class).holder(Holder1.class).layout(R.layout.holder_1).span(1)
-   .build();
+            .listener((item, position, clickEventCode) -> {
+                Toast.makeText(this, position + "", Toast.LENGTH_SHORT).show();
+            })
+            .layout().linear()
+            .addView().item(Item1.class).holder(Holder1.class).layout(R.layout.holder_1).span(1)
+            .build();
 
 // Create items and add
 for (int i = 0; i < 50; i++) {
 	recyclerView.add(new Item1("Item 1 " + i));
-	recyclerView.add(new Item2("Item 2 " + i));
-	recyclerView.add(new Item3("Item 3 " + i, "Desc"));
 }
 ```
 

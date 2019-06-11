@@ -1,5 +1,5 @@
 package com.canozgen.genericrv.viewholders;
 
-public interface ViewHolderClickEventListener {
+public interface GRViewHolderClickEventListener {
     void onClickEvent(int position, int clickEventCode);
 }

@@ -12,12 +12,18 @@
         android:id="@+id/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#212121"
+        android:background="#f0f0f0"
         android:padding="20dp"
         android:text="Generic Recycler View"
+        android:textColor="#212121" />
+
+    <EditText
+        android:id="@+id/etxtSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textColor="#FFF" />
 
-    <com.canozgen.genericrv.GenericRecyclerView
+    <com.canozgen.genericrv.GRView
         android:id="@+id/RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

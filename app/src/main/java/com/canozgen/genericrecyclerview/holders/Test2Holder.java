@@ -6,13 +6,13 @@ import android.widget.TextView;
 
 import com.canozgen.genericrecyclerview.R;
 import com.canozgen.genericrecyclerview.items.Item2;
-import com.canozgen.genericrv.viewholders.GenericViewHolder;
-import com.canozgen.genericrv.viewholders.ViewHolderClickEventListener;
+import com.canozgen.genericrv.viewholders.GRViewHolder;
+import com.canozgen.genericrv.viewholders.GRViewHolderClickEventListener;
 
-public class Test2Holder extends GenericViewHolder<Item2> {
+public class Test2Holder extends GRViewHolder<Item2> {
     private TextView textView;
 
-    public Test2Holder(@NonNull View itemView, ViewHolderClickEventListener clickEventListener) {
+    public Test2Holder(@NonNull View itemView, GRViewHolderClickEventListener clickEventListener) {
         super(itemView, clickEventListener);
     }
 

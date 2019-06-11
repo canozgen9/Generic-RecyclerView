@@ -4,13 +4,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.canozgen.genericrv.items.GenericRecyclerItem;
+import com.canozgen.genericrv.items.GRItem;
 
 
-public abstract class GenericViewHolder<T extends GenericRecyclerItem> extends RecyclerView.ViewHolder {
-    private ViewHolderClickEventListener clickEventListener;
+public abstract class GRViewHolder<T extends GRItem> extends RecyclerView.ViewHolder {
+    private GRViewHolderClickEventListener clickEventListener;
 
-    public GenericViewHolder(@NonNull View itemView, ViewHolderClickEventListener clickEventListener) {
+    public GRViewHolder(@NonNull View itemView, GRViewHolderClickEventListener clickEventListener) {
         super(itemView);
         this.clickEventListener = clickEventListener;
         init();

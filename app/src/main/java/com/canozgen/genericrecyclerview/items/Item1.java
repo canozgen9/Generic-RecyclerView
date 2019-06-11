@@ -1,9 +1,9 @@
 package com.canozgen.genericrecyclerview.items;
 
 
-import com.canozgen.genericrv.items.GenericRecyclerItem;
+import com.canozgen.genericrv.items.GRItem;
 
-public class Item1 implements GenericRecyclerItem {
+public class Item1 implements GRItem {
     private String text;
 
     public Item1(String text) {

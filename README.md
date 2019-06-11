@@ -1,6 +1,11 @@
 # Generic-RecyclerView [![Release](https://jitpack.io/v/canozgen9/Generic-RecyclerView.svg)](https://jitpack.io/#canozgen9/Generic-RecyclerView)
 
-Generic-RecyclerView is an android library that generifies recycler view.
+**Generic-RecyclerView** is an android library that generifies recycler view.  With this library you don't need to write **RecyclerAdapter** anymore.
+
+| All Items | Filtered Items |
+|:--|:--|
+|![All Items](/screenshots/full.png "All Items")|![Filtered Items](/screenshots/filtered.png "Filtered Items")|
+|**All Items** with 3 different ViewHolders|**Filtered Items** according to **EditText**'s text changes.|
 
 ## Getting Started
 ### Setting up dependencies
@@ -31,19 +36,19 @@ android {
 ```
 
 ### Adding to the layout
-Add **GenericRecyclerView** to your layout.
+Add **GRView** to your layout.
 ```xml
- <com.canozgen.genericrv.GenericRecyclerView
+ <GRView
         android:id="@+id/RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 ```
 ### Creating generic items
-Simply create your item class. Then implement **GenericRecyclerItem** interface.
+Simply create your item class. Then implement **GRItem** interface.
 
 **Item1.java**
 ```java
-public class Item1 implements GenericRecyclerItem {
+public class Item1 implements GRItem {
     public String text;
     
     public Item1(String text) {
@@ -72,12 +77,12 @@ Create layout for view holder.
 ```
 
 ### Creating generic view holder
-Create a class which extends from **GenericViewHolder** depending on your item.
->  Don't forget to create **GenericRecyclerItem** before creating **GenericViewHolder**.
+Create a class which extends from **GRViewHolder** depending on your item.
+>  Don't forget to create **GRItem** before creating **GRViewHolder**.
 
 **Holder1.java**
 ```java
-public class Holder1 extends GenericViewHolder<Item1> {
+public class Holder1 extends GRViewHolder<Item1> {
     // Define your views
     private TextView textView;
 
@@ -101,14 +106,22 @@ public class Holder1 extends GenericViewHolder<Item1> {
 ```
 
 ### All done!
-Now, in your Activity or Fragment, you can simply initialize your **GenericRecyclerView**.
+Now, in your Activity or Fragment, you can simply initialize your **GRView**.
 
 ```java
-// Find your GenericRecyclerView
-GenericRecyclerView<GenericRecyclerItem> recyclerView = findViewById(R.id.RecyclerView);
+// Find your GRView
+GRView<GRItem> recyclerView = findViewById(R.id.RecyclerView);
 
 // Use init() method to build it
 recyclerView.init(RecyclerActivity.this)
+            .search(editText, (query, item) -> {
+                // According to uppercase query string, filter items when EditText's text changes.
+                if (item instanceof Item1) {
+                    return ((Item1) item).getText().toUpperCase().contains(query);
+                } else {
+                    return false;
+                }
+            })
             .listener((item, position, clickEventCode) -> {
                 Toast.makeText(this, position + "", Toast.LENGTH_SHORT).show();
             })
@@ -124,10 +137,10 @@ for (int i = 0; i < 50; i++) {
 ## Documentation
 ### Constructuring
 ##### init(Context context)
->returns GenericRecyclerView's itself.
+>returns GRView's itself.
 
 ##### listener(GenericRecyclerClickListener<T> recyclerClickListener)
->returns GenericRecyclerView's itself.
+>returns GRView's itself.
 
 ##### layout()
 >Use `layout().grid()` or `layout().linear()` and see the options below. After all call `addView()` to begin adding view holders.
@@ -135,17 +148,17 @@ for (int i = 0; i < 50; i++) {
 ###### layout().grid()
 | method | params | default | returns | description |
 |:--|:--|:--|:--|:--|
-|orientation()|GenericOrientation|VERTICAL|itself|Sets the orientation of grid layout. `GenericOrientation.VERTICAL`, `GenericOrientation.HORIZONTAL`|
+|orientation()|GROrientation|VERTICAL|itself|Sets the orientation of grid layout. `GROrientation.VERTICAL`, `GROrientation.HORIZONTAL`|
 |reverse()|boolean|false|itself|Sets the reverse ordering.|
 |span()|int|1|itself|Sets the total span count of one row.|
-|addView()|-|-|GenericViewHolderBuilder|Starts to add view holders.|
+|addView()|-|-|GRViewHolderBuilder|Starts to add view holders.|
 
 Example
 ```java
 ...
 layout()
     .grid() // start
-    .orientation(GenericOrientation.VERTICAL) // optional
+    .orientation(GROrientation.VERTICAL) // optional
     .reverse(false) // optional
     .span(6) // optional
     .addView() // end
@@ -155,19 +168,19 @@ layout()
 ###### layout().linear()
 | method | params | default | returns | description |
 |:--|:--|:--|:--|:--|
-|orientation()|GenericOrientation|VERTICAL|itself|Sets the orientation of grid layout. `GenericOrientation.VERTICAL`, `GenericOrientation.HORIZONTAL`|
+|orientation()|GROrientation|VERTICAL|itself|Sets the orientation of grid layout. `GROrientation.VERTICAL`, `GROrientation.HORIZONTAL`|
 |reverse()|boolean|false|itself|Sets the reverse ordering.|
-|decoration()|GenericDecoration|NONE|itself|Adds the decoration. `GenericDecoration.NONE`, `GenericDecoration.DARK`, `GenericDecoration.LIGHT`|
-|addView()|-|-|GenericViewHolderBuilder|Starts to add view holders.|
+|decoration()|GRDecoration|NONE|itself|Adds the decoration. `GRDecoration.NONE`, `GRDecoration.DARK`, `GRDecoration.LIGHT`|
+|addView()|-|-|GRViewHolderBuilder|Starts to add view holders.|
 
 Example
 ```java
 ...
 layout()
     .linear() // start
-    .orientation(GenericOrientation.VERTICAL) // optional
+    .orientation(GROrientation.VERTICAL) // optional
     .reverse(false) // optional
-    .decoration(GenericDecoration.DARK) // optional
+    .decoration(GRDecoration.DARK) // optional
     .addView() // end
     ....
 ```
@@ -179,8 +192,8 @@ layout()
 |item()|Class|REQUIRED|itself|Sets the class of item associated with your holder.|
 |layout()|int|REQUIRED|itself|Sets the layout id of your view holder.|
 |span()|int|1|itself|Span count of item. Only works if **grid layout** is selected.|
-|addView()|-|-|GenericViewHolderBuilder|Starts to add more view holders.|
-|build()|-|-|GenericRecyclerView|Ends the build process.|
+|addView()|-|-|GRViewHolderBuilder|Starts to add more view holders.|
+|build()|-|-|GRView|Ends the build process.|
 
 Example
 ```java
@@ -219,5 +232,5 @@ Example
 
 ### TODO List
 - Add more layout options.
-- Document **GenericViewHolder** class.
+- Document **GRViewHolder** class.
 - Prepare contributing guide.

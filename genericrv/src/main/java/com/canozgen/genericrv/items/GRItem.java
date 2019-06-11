@@ -1,4 +1,4 @@
 package com.canozgen.genericrv.items;
 
-public interface GenericRecyclerItem {
+public interface GRItem {
 }

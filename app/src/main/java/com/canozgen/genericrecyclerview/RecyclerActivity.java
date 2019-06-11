@@ -2,6 +2,8 @@ package com.canozgen.genericrecyclerview;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.canozgen.genericrecyclerview.holders.Test1Holder;
@@ -10,22 +12,34 @@ import com.canozgen.genericrecyclerview.holders.Test3Holder;
 import com.canozgen.genericrecyclerview.items.Item1;
 import com.canozgen.genericrecyclerview.items.Item2;
 import com.canozgen.genericrecyclerview.items.Item3;
-import com.canozgen.genericrv.GenericRecyclerView;
-import com.canozgen.genericrv.items.GenericRecyclerItem;
+import com.canozgen.genericrv.GRView;
+import com.canozgen.genericrv.items.GRItem;
 
 
 public class RecyclerActivity extends AppCompatActivity {
-
+    public static final String TAG = "RecyclerActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
 
-
-        GenericRecyclerView<GenericRecyclerItem> recyclerView = findViewById(R.id.RecyclerView);
+        GRView<GRItem> recyclerView = findViewById(R.id.RecyclerView);
+        EditText etxtSearch = findViewById(R.id.etxtSearch);
 
         recyclerView.init(RecyclerActivity.this)
+                .search(etxtSearch, (query, item) -> {
+//                    Log.d(TAG, "onCreate: query: " + query);
+                    if (item instanceof Item1) {
+                        return ((Item1) item).getText().toUpperCase().contains(query);
+                    } else if (item instanceof Item2) {
+                        return ((Item2) item).getText().toUpperCase().contains(query);
+                    } else if (item instanceof Item3) {
+                        return ((Item3) item).getTitle().toUpperCase().contains(query);
+                    } else {
+                        return false;
+                    }
+                })
                 .listener((item, position, clickEventCode) -> {
                     Toast.makeText(this, position + "", Toast.LENGTH_SHORT).show();
                 })

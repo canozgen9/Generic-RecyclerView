@@ -1,6 +1,6 @@
 package com.canozgen.genericrv.props;
 
-public enum GenericDecoration {
+public enum GRDecoration {
     LIGHT,
     DARK,
     NONE

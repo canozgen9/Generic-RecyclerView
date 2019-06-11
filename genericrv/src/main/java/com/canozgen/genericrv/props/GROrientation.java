@@ -1,6 +1,6 @@
 package com.canozgen.genericrv.props;
 
-public enum GenericOrientation {
+public enum GROrientation {
     VERTICAL,
     HORIZONTAL
 }

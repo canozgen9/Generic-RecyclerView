@@ -1,5 +1,5 @@
 package com.canozgen.genericrv.adapters;
 
-public interface GenericRecyclerClickListener<T> {
+public interface GRClickListener<T> {
     void onClick(T item, int position, int clickEventCode);
 }
